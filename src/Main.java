@@ -5,7 +5,7 @@ public class Main {
     private static TicketManager ticketManager = new TicketManager();
 
     public static void main(String[] args) {
-
+        ticketManager.setTickets(FileHandler.loadTickets());
         boolean running = true;
 
         while (running) {
@@ -19,7 +19,7 @@ public class Main {
                     break;
 
                 case 2:
-                    System.out.println("View all tickets feature coming soon.");
+                    ticketManager.viewAllTickets();
                     break;
 
                 case 3:
@@ -47,6 +47,7 @@ public class Main {
                     break;
 
                 case 9:
+                    ticketManager.saveTickets();
                     System.out.println("Exiting Mission Support Tracker...");
                     running = false;
                     break;
@@ -106,4 +107,6 @@ public class Main {
 
 
     }
+
+
 }

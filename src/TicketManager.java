@@ -23,9 +23,26 @@ public class TicketManager {
             return;
         }
 
-        for (Ticket fault : Tickets) {
-            System.out.println(fault);
+        for (Ticket ticket : Tickets) {
+            System.out.println(ticket);
             System.out.println("-------------------------");
         }
+    }
+    public void setTickets(ArrayList<Ticket> tickets) {
+        this.Tickets = tickets;
+
+        int highestId = 0;
+
+        for (Ticket ticket : tickets) {
+            if (ticket.getTicketId() > highestId) {
+                highestId = ticket.getTicketId();
+            }
+        }
+
+        nextId = highestId + 1;
+    }
+
+    public void saveTickets() {
+        FileHandler.saveTickets(Tickets);
     }
 }
