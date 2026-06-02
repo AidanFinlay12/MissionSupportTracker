@@ -45,4 +45,19 @@ public class TicketManager {
     public void saveTickets() {
         FileHandler.saveTickets(Tickets);
     }
+
+    public void filterBySeverity(String severity){
+        boolean found = false;
+
+        for(Ticket ticket: Tickets){
+            if (ticket.getSeverity().equalsIgnoreCase(severity)) {
+                System.out.println(ticket);
+                System.out.println("-------------------------");
+                found = true;
+            }
+        }
+        if (!found) {
+            System.out.println("No faults found with that status.");
+        }
+    }
 }

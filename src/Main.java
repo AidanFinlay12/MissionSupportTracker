@@ -27,7 +27,7 @@ public class Main {
                     break;
 
                 case 4:
-                    System.out.println("Filter by severity feature coming soon.");
+                    filterBySeverity();
                     break;
 
                 case 5:
@@ -94,8 +94,7 @@ public class Main {
         System.out.print("Enter Product Area: ");
         String productArea = scanner.nextLine();
 
-        System.out.print("Enter Severity: ");
-        String severity = scanner.nextLine();
+        String severity = chooseSeverity();
 
         System.out.print("Enter Status: ");
         String status = scanner.nextLine();
@@ -106,6 +105,37 @@ public class Main {
         ticketManager.addTicket(agencyName, reporterName, productArea, severity, status, issueDescription);
 
 
+    }
+
+    private static String chooseSeverity() {
+        System.out.println("\nChoose Severity:");
+        System.out.println("1. Low");
+        System.out.println("2. Medium");
+        System.out.println("3. High");
+        System.out.println("4. Critical");
+
+        int choice = getIntInput("Severity: ");
+
+        switch (choice) {
+            case 1:
+                return "Low";
+            case 2:
+                return "Medium";
+            case 3:
+                return "High";
+            case 4:
+                return "Critical";
+            default:
+                System.out.println("Invalid choice. Defaulting to Medium.");
+                return "Medium";
+        }
+
+
+    }
+
+    private static void filterBySeverity() {
+        String severity = chooseSeverity();
+        ticketManager.filterBySeverity(severity);
     }
 
 
