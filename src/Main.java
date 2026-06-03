@@ -96,8 +96,8 @@ public class Main {
 
         String severity = chooseSeverity();
 
-        System.out.print("Enter Status: ");
-        String status = scanner.nextLine();
+        String status = "Open";
+        System.out.println("Status automatically set to Open.");
 
         System.out.print("Enter Issue Description: ");
         String issueDescription = scanner.nextLine();
