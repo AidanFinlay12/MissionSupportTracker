@@ -6,6 +6,7 @@ public class Main {
 
     public static void main(String[] args) {
         ticketManager.setTickets(FileHandler.loadTickets());
+
         boolean running = true;
 
         while (running) {
@@ -31,7 +32,7 @@ public class Main {
                     break;
 
                 case 5:
-                    System.out.println("Filter by status feature coming soon.");
+                    filterByStatus();
                     break;
 
                 case 6:
@@ -39,11 +40,11 @@ public class Main {
                     break;
 
                 case 7:
-                    System.out.println("Add investigation note feature coming soon.");
+                    addInvestigationNote();
                     break;
 
                 case 8:
-                    filterByTicketId();
+                    viewTicketDetails();
                     break;
 
                 case 9:
@@ -84,7 +85,7 @@ public class Main {
         }
     }
 
-    private static void addTicket(){
+    private static void addTicket() {
         System.out.print("Enter Agency Name: ");
         String agencyName = scanner.nextLine();
 
@@ -103,8 +104,6 @@ public class Main {
         String issueDescription = scanner.nextLine();
 
         ticketManager.addTicket(agencyName, reporterName, productArea, severity, status, issueDescription);
-
-
     }
 
     private static String chooseSeverity() {
@@ -129,8 +128,6 @@ public class Main {
                 System.out.println("Invalid choice. Defaulting to Medium.");
                 return "Medium";
         }
-
-
     }
 
     private static String chooseStatus() {
@@ -162,17 +159,29 @@ public class Main {
         ticketManager.filterBySeverity(severity);
     }
 
-    private static void updateTicketStatus(){
+    private static void filterByStatus() {
+        String status = chooseStatus();
+        ticketManager.filterByStatus(status);
+    }
+
+    private static void updateTicketStatus() {
         int ticketId = getIntInput("Enter Ticket ID: ");
         String status = chooseStatus();
 
         ticketManager.updateTicketStatus(ticketId, status);
     }
 
-    private static void filterByTicketId(){
+    private static void addInvestigationNote() {
+        int ticketId = getIntInput("Enter Ticket ID: ");
+
+        System.out.print("Enter investigation note: ");
+        String note = scanner.nextLine();
+
+        ticketManager.addInvestigationNote(ticketId, note);
+    }
+
+    private static void viewTicketDetails() {
         int ticketId = getIntInput("Enter Ticket ID: ");
         ticketManager.viewTicketById(ticketId);
     }
-
-
 }

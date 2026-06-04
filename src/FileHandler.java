@@ -4,7 +4,7 @@ import java.util.ArrayList;
 public class FileHandler {
     private static final String FILE_NAME = "Ticket.txt";
 
-    public static void saveTickets(ArrayList<Ticket> tickets){
+    public static void saveTickets(ArrayList<Ticket> tickets) {
         try (PrintWriter writer = new PrintWriter(new FileWriter(FILE_NAME))) {
 
             for (Ticket ticket : tickets) {
@@ -14,13 +14,14 @@ public class FileHandler {
                         ticket.getProductArea() + "|" +
                         ticket.getSeverity() + "|" +
                         ticket.getStatus() + "|" +
-                        ticket.getIssueDescription());
+                        ticket.getIssueDescription() + "|" +
+                        String.join("~", ticket.getNotes()));
             }
 
             System.out.println("Tickets saved successfully.");
 
         } catch (IOException e) {
-            System.out.println("Error saving Tickets: " + e.getMessage());
+            System.out.println("Error saving tickets: " + e.getMessage());
         }
     }
 
@@ -39,7 +40,7 @@ public class FileHandler {
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split("\\|", -1);
 
-                if (parts.length == 7) {
+                if (parts.length >= 7) {
                     int ticketId = Integer.parseInt(parts[0]);
                     String agencyName = parts[1];
                     String reporterName = parts[2];
@@ -58,6 +59,17 @@ public class FileHandler {
                             issueDescription
                     );
 
+                    if (parts.length >= 8 && !parts[7].isEmpty()) {
+                        ArrayList<String> notes = new ArrayList<>();
+                        String[] savedNotes = parts[7].split("~");
+
+                        for (String note : savedNotes) {
+                            notes.add(note);
+                        }
+
+                        ticket.setNotes(notes);
+                    }
+
                     tickets.add(ticket);
                 }
             }
@@ -68,5 +80,4 @@ public class FileHandler {
 
         return tickets;
     }
-
 }

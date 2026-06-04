@@ -4,12 +4,13 @@ public class TicketManager {
     private ArrayList<Ticket> Tickets;
     private int nextId;
 
-    public TicketManager(){
+    public TicketManager() {
         Tickets = new ArrayList<>();
         nextId = 1;
     }
 
-    public void addTicket(String agencyName, String reporterName, String productArea, String severity, String status, String issueDescription){
+    public void addTicket(String agencyName, String reporterName, String productArea,
+                          String severity, String status, String issueDescription) {
         Ticket ticket = new Ticket(nextId, agencyName, reporterName, productArea, severity, status, issueDescription);
         Tickets.add(ticket);
         nextId++;
@@ -17,9 +18,9 @@ public class TicketManager {
         System.out.println("Ticket added successfully.");
     }
 
-    public void viewAllTickets(){
-        if(Tickets.isEmpty()){
-            System.out.println("No Tickets currently logged.");
+    public void viewAllTickets() {
+        if (Tickets.isEmpty()) {
+            System.out.println("No tickets currently logged.");
             return;
         }
 
@@ -28,6 +29,7 @@ public class TicketManager {
             System.out.println("-------------------------");
         }
     }
+
     public void setTickets(ArrayList<Ticket> tickets) {
         this.Tickets = tickets;
 
@@ -46,20 +48,38 @@ public class TicketManager {
         FileHandler.saveTickets(Tickets);
     }
 
-    public void filterBySeverity(String severity){
+    public void filterBySeverity(String severity) {
         boolean found = false;
 
-        for(Ticket ticket: Tickets){
+        for (Ticket ticket : Tickets) {
             if (ticket.getSeverity().equalsIgnoreCase(severity)) {
                 System.out.println(ticket);
                 System.out.println("-------------------------");
                 found = true;
             }
         }
+
         if (!found) {
-            System.out.println("No faults found with that status.");
+            System.out.println("No tickets found with that severity.");
         }
     }
+
+    public void filterByStatus(String status) {
+        boolean found = false;
+
+        for (Ticket ticket : Tickets) {
+            if (ticket.getStatus().equalsIgnoreCase(status)) {
+                System.out.println(ticket);
+                System.out.println("-------------------------");
+                found = true;
+            }
+        }
+
+        if (!found) {
+            System.out.println("No tickets found with that status.");
+        }
+    }
+
     public void updateTicketStatus(int ticketId, String newStatus) {
         for (Ticket ticket : Tickets) {
             if (ticket.getTicketId() == ticketId) {
@@ -73,19 +93,26 @@ public class TicketManager {
     }
 
     public void viewTicketById(int ticketId) {
-        boolean found = false;
-
         for (Ticket ticket : Tickets) {
             if (ticket.getTicketId() == ticketId) {
                 System.out.println(ticket);
                 System.out.println("-------------------------");
-                found = true;
-                break;
+                return;
             }
         }
 
-        if (!found) {
-            System.out.println("No ticket found with that ID.");
+        System.out.println("No ticket found with that ID.");
+    }
+
+    public void addInvestigationNote(int ticketId, String note) {
+        for (Ticket ticket : Tickets) {
+            if (ticket.getTicketId() == ticketId) {
+                ticket.addNote(note);
+                System.out.println("Investigation note added successfully.");
+                return;
+            }
         }
+
+        System.out.println("Ticket not found.");
     }
 }

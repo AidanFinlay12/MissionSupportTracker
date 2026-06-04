@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Ticket {
     private int ticketId;
     private String agencyName;
@@ -6,6 +8,7 @@ public class Ticket {
     private String severity;
     private String status;
     private String issueDescription;
+    private ArrayList<String> notes;
 
     public Ticket(int ticketId, String agencyName, String reporterName, String productArea,
                   String severity, String status, String issueDescription) {
@@ -16,6 +19,7 @@ public class Ticket {
         this.severity = severity;
         this.status = status;
         this.issueDescription = issueDescription;
+        this.notes = new ArrayList<>();
     }
 
     public int getTicketId() {
@@ -46,18 +50,41 @@ public class Ticket {
         return issueDescription;
     }
 
+    public ArrayList<String> getNotes() {
+        return notes;
+    }
+
     public void setStatus(String status) {
         this.status = status;
     }
 
+    public void addNote(String note) {
+        notes.add(note);
+    }
+
+    public void setNotes(ArrayList<String> notes) {
+        this.notes = notes;
+    }
+
     @Override
     public String toString() {
-        return "\nTicket ID: " + ticketId +
+        String result = "\nTicket ID: " + ticketId +
                 "\nAgency Name: " + agencyName +
                 "\nReporter Name: " + reporterName +
                 "\nProduct Area: " + productArea +
                 "\nSeverity: " + severity +
                 "\nStatus: " + status +
                 "\nIssue Description: " + issueDescription;
+
+        if (notes.isEmpty()) {
+            result += "\nNotes: No investigation notes added.";
+        } else {
+            result += "\nNotes:";
+            for (String note : notes) {
+                result += "\n- " + note;
+            }
+        }
+
+        return result;
     }
 }
