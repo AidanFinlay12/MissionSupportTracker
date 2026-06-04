@@ -35,7 +35,7 @@ public class Main {
                     break;
 
                 case 6:
-                    System.out.println("Update ticket status feature coming soon.");
+                    updateTicketStatus();
                     break;
 
                 case 7:
@@ -43,7 +43,7 @@ public class Main {
                     break;
 
                 case 8:
-                    System.out.println("View ticket details feature coming soon.");
+                    filterByTicketId();
                     break;
 
                 case 9:
@@ -133,9 +133,45 @@ public class Main {
 
     }
 
+    private static String chooseStatus() {
+        System.out.println("\nChoose Status:");
+        System.out.println("1. Open");
+        System.out.println("2. Investigating");
+        System.out.println("3. Escalated");
+        System.out.println("4. Resolved");
+
+        int choice = getIntInput("Status: ");
+
+        switch (choice) {
+            case 1:
+                return "Open";
+            case 2:
+                return "Investigating";
+            case 3:
+                return "Escalated";
+            case 4:
+                return "Resolved";
+            default:
+                System.out.println("Invalid choice. Defaulting to Open.");
+                return "Open";
+        }
+    }
+
     private static void filterBySeverity() {
         String severity = chooseSeverity();
         ticketManager.filterBySeverity(severity);
+    }
+
+    private static void updateTicketStatus(){
+        int ticketId = getIntInput("Enter Ticket ID: ");
+        String status = chooseStatus();
+
+        ticketManager.updateTicketStatus(ticketId, status);
+    }
+
+    private static void filterByTicketId(){
+        int ticketId = getIntInput("Enter Ticket ID: ");
+        ticketManager.viewTicketById(ticketId);
     }
 
 

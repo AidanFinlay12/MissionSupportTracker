@@ -60,4 +60,32 @@ public class TicketManager {
             System.out.println("No faults found with that status.");
         }
     }
+    public void updateTicketStatus(int ticketId, String newStatus) {
+        for (Ticket ticket : Tickets) {
+            if (ticket.getTicketId() == ticketId) {
+                ticket.setStatus(newStatus);
+                System.out.println("Ticket status updated successfully.");
+                return;
+            }
+        }
+
+        System.out.println("Ticket not found.");
+    }
+
+    public void viewTicketById(int ticketId) {
+        boolean found = false;
+
+        for (Ticket ticket : Tickets) {
+            if (ticket.getTicketId() == ticketId) {
+                System.out.println(ticket);
+                System.out.println("-------------------------");
+                found = true;
+                break;
+            }
+        }
+
+        if (!found) {
+            System.out.println("No ticket found with that ID.");
+        }
+    }
 }
