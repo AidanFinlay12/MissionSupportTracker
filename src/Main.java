@@ -24,7 +24,7 @@ public class Main {
                     break;
 
                 case 3:
-                    System.out.println("Search tickets feature coming soon.");
+                    searchTickets();
                     break;
 
                 case 4:
@@ -183,5 +183,12 @@ public class Main {
     private static void viewTicketDetails() {
         int ticketId = getIntInput("Enter Ticket ID: ");
         ticketManager.viewTicketById(ticketId);
+    }
+
+    private static void searchTickets() {
+        System.out.print("Enter search keyword: ");
+        String keyword = scanner.nextLine();
+
+        ticketManager.searchTickets(keyword);
     }
 }

@@ -115,4 +115,25 @@ public class TicketManager {
 
         System.out.println("Ticket not found.");
     }
+
+    public void searchTickets(String keyword) {
+        boolean found = false;
+        String search = keyword.toLowerCase();
+
+        for (Ticket ticket : Tickets) {
+            if (ticket.getAgencyName().toLowerCase().contains(search) ||
+                    ticket.getReporterName().toLowerCase().contains(search) ||
+                    ticket.getProductArea().toLowerCase().contains(search) ||
+                    ticket.getIssueDescription().toLowerCase().contains(search)) {
+
+                System.out.println(ticket);
+                System.out.println("-------------------------");
+                found = true;
+            }
+        }
+
+        if (!found) {
+            System.out.println("No tickets found matching that keyword.");
+        }
+    }
 }
